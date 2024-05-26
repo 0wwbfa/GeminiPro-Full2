@@ -2,6 +2,14 @@ import os
 import streamlit as st
 from streamlit_local_storage import LocalStorage
 
+hide_streamlit_style = """
+            <style>
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 from dotenv import load_dotenv
 import google.generativeai as gen_ai
 
