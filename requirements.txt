@@ -1,4 +1,4 @@
 python-dotenv
 google-generativeai
-streamlit==1.13.0
+streamlit
 streamlit-local-storage
