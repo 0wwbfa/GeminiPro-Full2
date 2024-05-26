@@ -9,14 +9,6 @@ st.set_page_config(
     menu_items={}
 )
 
-hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
-
 from dotenv import load_dotenv
 import google.generativeai as gen_ai
 
@@ -44,9 +36,17 @@ if not GOOGLE_API_KEY:
     st.error("Please enter your Google API Key.")
     st.stop()
 
+st.markdown('''
+<style>
+.stApp [data-testid="stToolbar"]{
+    display:none;
+}
+</style>
+''', unsafe_allow_html=True)
+
 # Set up Google Gemini-Pro AI model
 gen_ai.configure(api_key=GOOGLE_API_KEY)
-model = gen_ai.GenerativeModel('gemini-1.0-pro')
+model = gen_ai.GenerativeModel('gemini-1.5-pro')
 
 # Function to translate roles between Gemini-Pro and Streamlit terminology
 def translate_role_for_streamlit(user_role):
