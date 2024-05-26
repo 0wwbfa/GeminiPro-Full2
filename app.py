@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+st.set_page_config(layout="wide")
 from streamlit_local_storage import LocalStorage
 
 from dotenv import load_dotenv
@@ -9,8 +10,6 @@ import google.generativeai as gen_ai
 load_dotenv()
 
 localS = LocalStorage() 
-
-st.set_page_config(layout="wide")
 
 # Configure Streamlit page settings
 st.set_page_config(
