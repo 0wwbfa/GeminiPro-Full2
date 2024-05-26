@@ -1,4 +1,4 @@
 [theme]
 base="dark"
 [browser]
-gatherUsageStats = flase
+gatherUsageStats = false
