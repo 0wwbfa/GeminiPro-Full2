@@ -29,7 +29,8 @@ if (GOOGLE_API_KEY==None):
 
     # Close the sidebar when the Google API key is entered
     if GOOGLE_API_KEY:
-        st.sidebar.close()
+        st.session_state.sidebar_state = 'collapsed'
+        st.experimental_rerun()
 
 # Check if API key is provided
 if not GOOGLE_API_KEY:
