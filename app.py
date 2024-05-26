@@ -10,6 +10,8 @@ load_dotenv()
 
 localS = LocalStorage() 
 
+st.set_page_config(layout="wide", theme="dark")
+
 # Configure Streamlit page settings
 st.set_page_config(
     page_title="Gemini-Pro Chatbot by HJP7",
