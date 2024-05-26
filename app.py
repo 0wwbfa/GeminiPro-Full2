@@ -8,15 +8,31 @@ st.set_page_config(
     layout="wide",  # Page layout option
     menu_items={}
 )
-
-st.markdown(
-    """
-    <script>
-        document.querySelector("#root > div:nth-child(1) > div > div > button").style.display="none"
-    </script>
-    """,
-    unsafe_allow_html=True,
-)
+generation_config = {
+  "temperature": 1,
+  "top_p": 0.95,
+  "top_k": 64,
+  "max_output_tokens": 8192,
+  "response_mime_type": "text/plain",
+}
+safety_settings = [
+  {
+    "category": "HARM_CATEGORY_HARASSMENT",
+    "threshold": "BLOCK_NONE",
+  },
+  {
+    "category": "HARM_CATEGORY_HATE_SPEECH",
+    "threshold": "BLOCK_NONEE",
+  },
+  {
+    "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+    "threshold": "BLOCK_NONEE",
+  },
+  {
+    "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+    "threshold": "BLOCK_NONE",
+  },
+]
 
 from dotenv import load_dotenv
 import google.generativeai as gen_ai
@@ -55,7 +71,11 @@ st.markdown('''
 
 # Set up Google Gemini-Pro AI model
 gen_ai.configure(api_key=GOOGLE_API_KEY)
-model = gen_ai.GenerativeModel('gemini-1.5-pro')
+model = gen_ai.GenerativeModel(
+  model_name="gemini-1.5-pro",
+  safety_settings=safety_settings,
+  generation_config=generation_config,
+)
 
 # Function to translate roles between Gemini-Pro and Streamlit terminology
 def translate_role_for_streamlit(user_role):
@@ -63,6 +83,15 @@ def translate_role_for_streamlit(user_role):
         return "assistant"
     else:
         return user_role
+
+st.markdown(
+    """
+    <script>
+        document.querySelector("#root > div:nth-child(1) > div > div > button").style.display="none"
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
 
 # Initialize chat session in Streamlit if not already present
 if "chat_session" not in st.session_state:
