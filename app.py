@@ -6,7 +6,6 @@ st.set_page_config(
     page_title="Gemini-Pro Chatbot Full",
     page_icon=":alien:",  # Favicon emoji
     layout="wide",  # Page layout option
-    sharing=False, 
     menu_items={}
 )
 
