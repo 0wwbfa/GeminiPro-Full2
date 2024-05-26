@@ -1,12 +1,14 @@
 import os
 import streamlit as st
-from streamlit import localstorage
+from streamlit_local_storage import LocalStorage
 
 from dotenv import load_dotenv
 import google.generativeai as gen_ai
 
 # Load environment variables
 load_dotenv()
+
+localS = LocalStorage() 
 
 # Configure Streamlit page settings
 st.set_page_config(
@@ -16,7 +18,7 @@ st.set_page_config(
 )
 
 # Get the Google API key from the local storage
-GOOGLE_API_KEY = localstorage.get('gak')
+GOOGLE_API_KEY = localS.getItem('gak')
 
 # If the Google API key is not present in the local storage, open the sidebar to input it
 if (GOOGLE_API_KEY==None):
@@ -48,6 +50,8 @@ def translate_role_for_streamlit(user_role):
 # Initialize chat session in Streamlit if not already present
 if "chat_session" not in st.session_state:
     st.session_state.chat_session = model.start_chat(history=[])
+
+localS.setItem('gak', GOOGLE_API_KEY)
 
 # Display the chatbot's title on the page
 # st.title("🤖 Gemini Pro - ChatBot")
