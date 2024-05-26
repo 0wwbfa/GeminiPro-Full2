@@ -1,5 +1,7 @@
 import os
 import streamlit as st
+from streamlit import localstorage
+
 from dotenv import load_dotenv
 import google.generativeai as gen_ai
 
@@ -13,14 +15,19 @@ st.set_page_config(
     layout="centered",  # Page layout option
 )
 
-# Sidebar to input Google API Key
-st.sidebar.title("Gemini-Pro Configuration")
-GOOGLE_API_KEY = st.sidebar.text_input("Enter your Google API Key", type="password")
+# Get the Google API key from the local storage
+GOOGLE_API_KEY = localstorage.get('gak')
 
-# Guide for obtaining Google API Key if not available
-st.sidebar.subheader("Don't have a Google API Key?")
-st.sidebar.write("Visit [Google's Aistudio](https://aistudio.google.com/app/apikey) and log in with your Google account. Then click on 'Create API Key'.")
+# If the Google API key is not present in the local storage, open the sidebar to input it
+if (GOOGLE_API_KEY==None):
+    # Sidebar to input Google API Key
+    with st.sidebar:
+        st.sidebar.title("Gemini-Pro Configuration")
+        GOOGLE_API_KEY = st.sidebar.text_input("Enter your Google API Key", type="password")
 
+    # Close the sidebar when the Google API key is entered
+    if GOOGLE_API_KEY:
+        st.sidebar.close()
 
 # Check if API key is provided
 if not GOOGLE_API_KEY:
@@ -43,10 +50,10 @@ if "chat_session" not in st.session_state:
     st.session_state.chat_session = model.start_chat(history=[])
 
 # Display the chatbot's title on the page
-st.title("🤖 Gemini Pro - ChatBot")
+# st.title("🤖 Gemini Pro - ChatBot")
 
 # Add small text below the header
-st.markdown("Made by 😎 [Hardik](https://www.linkedin.com/in/hardikjp/)")
+# st.markdown("Made by 😎 [Hardik](https://www.linkedin.com/in/hardikjp/)")
 
 # Display the chat history
 for message in st.session_state.chat_session.history:
