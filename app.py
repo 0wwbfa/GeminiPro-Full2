@@ -10,7 +10,7 @@ load_dotenv()
 
 localS = LocalStorage() 
 
-st.set_page_config(layout="wide", theme="dark")
+st.set_page_config(layout="wide")
 
 # Configure Streamlit page settings
 st.set_page_config(
