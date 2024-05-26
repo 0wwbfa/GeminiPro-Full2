@@ -1,6 +1,12 @@
 import os
 import streamlit as st
 from streamlit_local_storage import LocalStorage
+# Configure Streamlit page settings
+st.set_page_config(
+    page_title="Gemini-Pro Chatbot Full",
+    page_icon=":alien:",  # Favicon emoji
+    layout="wide",  # Page layout option
+)
 
 hide_streamlit_style = """
             <style>
@@ -17,13 +23,6 @@ import google.generativeai as gen_ai
 load_dotenv()
 
 localS = LocalStorage() 
-
-# Configure Streamlit page settings
-st.set_page_config(
-    page_title="Gemini-Pro Chatbot by HJP7",
-    page_icon=":alien:",  # Favicon emoji
-    layout="centered",  # Page layout option
-)
 
 # Get the Google API key from the local storage
 GOOGLE_API_KEY = localS.getItem('gak')
