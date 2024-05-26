@@ -9,6 +9,15 @@ st.set_page_config(
     menu_items={}
 )
 
+st.markdown(
+    """
+    <script>
+        document.querySelector("#root > div:nth-child(1) > div > div > button").style.display="none"
+    </script>
+    """,
+    unsafe_allow_html=True,
+)
+
 from dotenv import load_dotenv
 import google.generativeai as gen_ai
 
